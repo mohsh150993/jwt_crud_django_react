@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/hello/")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message))
-      .catch((err) => console.error("Error fetching hello:", err));
+    fetchHello().then(data => {
+      setMessage(data.message);
+    }).catch(err => {
+      console.error(err);
+      setMessage("Error connecting to backend");
+    });
   }, []);
 
+
   return (
-    <div>
-      <h1>React to Django Hello</h1>
-      <p>{message}</p>
+    <div className="App">
+      <h1>{message}</h1>
     </div>
   );
 }

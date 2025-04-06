@@ -5,6 +5,8 @@ services:
     container_name: django_app
     expose:
       - "8000"
+    # ports:  # add this to access the django app from the host machine
+    #   - "8000:8000"  
     volumes:
       - ./ucon_backend:/app
     env_file:
@@ -17,4 +19,20 @@ services:
       - "80:80"
     depends_on:
       - backend
+
+  db:
+    image: postgres:14
+    container_name: postgres_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: uconadmin
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+
 
