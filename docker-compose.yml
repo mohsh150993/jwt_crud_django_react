@@ -1,0 +1,20 @@
+# version: '3.8'
+services:
+  backend:
+    build: ./ucon_backend
+    container_name: django_app
+    expose:
+      - "8000"
+    volumes:
+      - ./ucon_backend:/app
+    env_file:
+      - ./ucon_backend/.env
+
+  frontend:
+    build: ./ucon_frontend
+    container_name: react_app
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
