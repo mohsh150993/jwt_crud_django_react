@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #custom urls
-    path('api/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
+
+
