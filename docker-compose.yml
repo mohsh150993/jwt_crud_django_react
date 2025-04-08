@@ -7,39 +7,23 @@ services:
     expose:
       - "8000"
     ports:
-      - "8000:8000"  # Optional, for host access if needed
+      - "8000:8000"
     volumes:
       - ./ucon_backend:/app
-      - static_volume:/app/staticfiles  # shared volume for static files
-
+      - static_volume:/app/staticfiles
     env_file:
       - ./ucon_backend/.env
     depends_on:
       - db
 
-  frontend:
-    build: ./ucon_frontend
-    container_name: react_app
-    depends_on:
-      - backend
-    volumes:
-      - ./ucon_frontend:/app
-      
-    # React will be served via nginx
-
   nginx:
-    image: nginx:latest
+    build: ./ucon_frontend
     container_name: nginx_proxy
     ports:
       - "80:80"
     volumes:
-      # - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      # - ./ucon_frontend/nginx.conf:/etc/nginx/conf.d/app.conf:ro # Mounts your config into the standard Nginx location inside the container. ':ro' makes it read-only.
-      - ./ucon_frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - static_volume:/app/staticfiles  # match this path with STATIC_ROOT
-
+      - static_volume:/app/staticfiles
     depends_on:
-      - frontend
       - backend
 
   db:
