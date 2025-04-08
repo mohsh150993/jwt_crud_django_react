@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './auth/authContext';
+import PrivateRoute from './auth/PrivateRoute';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
 
 function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetchHello().then(data => {
-      setMessage(data.message);
-    }).catch(err => {
-      console.error(err);
-      setMessage("Error connecting to backend");
-    });
-  }, []);
-
-
   return (
-    <div className="App">
-      <h1>{message}</h1>
-    </div>
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
 }
 
