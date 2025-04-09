@@ -34,7 +34,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         ('consumer', 'Consumer')
     ]
 
-    user_pk = models.AutoField(primary_key=True)
     user_email = models.EmailField(verbose_name='Email', max_length=255, unique=True)
     user_name = models.CharField(max_length=200)
     user_role = models.CharField(max_length=10, choices=ROLE_CHOICE, default='consumer')
