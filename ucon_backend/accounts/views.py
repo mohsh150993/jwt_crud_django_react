@@ -53,7 +53,7 @@ class LogoutView(APIView):
         serializer = LogoutSerializer(data=request.data)
         if serializer.is_valid():
             try:
-                refresh_token = serializer.data['refresh']
+                refresh_token = serializer.validated_data['refresh']
                 token = RefreshToken(refresh_token)
                 token.blacklist()
                 return Response({'message': 'Logout successful'}, status=status.HTTP_205_RESET_CONTENT)

@@ -14,7 +14,7 @@ const Login = () => {
     if (token) {
       navigate("/");
     }
-  }, [token, navigate]);
+  }, [token, navigate]); // <- dependency array
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,8 +23,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await post(API_LOGIN, formData, false); // `false` disables token in header
-      if (response.tokens?.access) {
-        login(response.tokens.access); // store access token
+      if (response.tokens?.access && response.tokens?.refresh) {
+        login({access: response.tokens.access, refresh: response.tokens.refresh,});        
         navigate('/');
       } else {
         alert("Invalid login credentials");

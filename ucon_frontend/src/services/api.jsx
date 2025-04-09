@@ -33,8 +33,16 @@ export const post = async (url, data, is_token = true) => {
   
     // Send token only if is_token is true and token is available
     if (is_token && token) {
-      headers.Authorization = `Token ${token}`;
+      // headers.Authorization = `Token ${token}`;
+      headers.Authorization = `Bearer ${JSON.parse(token)}`; 
+
     }
+
+    // 🔍 Log everything being sent
+    console.log("POST Request:");
+    console.log("URL:", `${BASE_URL}${url}`);
+    console.log("Headers:", headers);
+    console.log("Body:", data);
   
     const response = await fetch(`${BASE_URL}${url}`, {
       method: "POST",

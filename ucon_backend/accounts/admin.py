@@ -1,6 +1,7 @@
 from django.contrib import admin
 from accounts.models import CustomUser
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 
 class UserModelAdmin(BaseUserAdmin):
     list_display = ('id', 'user_email', 'user_name', 'user_role', 'is_active', 'is_staff', 'is_superuser')
@@ -25,3 +26,4 @@ class UserModelAdmin(BaseUserAdmin):
     filter_horizontal = ('groups', 'user_permissions')
 
 admin.site.register(CustomUser, UserModelAdmin)
+

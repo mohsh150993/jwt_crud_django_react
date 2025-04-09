@@ -25,11 +25,11 @@ const Register = () => {
       const response = await post(API_REGISTER, formData, false); 
       console.log("Response:", response);
 
-      if (response.tokens) {
-        //localStorage.setItem("token", response.tokens.access);
-        login(response.tokens); // Use context method instead of localStorage
+      if (response.tokens?.access && response.tokens?.refresh) {
+        login({access: response.tokens.access, refresh: response.tokens.refresh,});        
         navigate('/');
-      } else {
+      } 
+      else {
         alert("Registration failed.");
       }
     } catch (err) {
