@@ -28,7 +28,7 @@ const Register = () => {
       if (response.tokens) {
         //localStorage.setItem("token", response.tokens.access);
         login(response.tokens); // Use context method instead of localStorage
-        navigate('/dashboard');
+        navigate('/');
       } else {
         alert("Registration failed.");
       }
