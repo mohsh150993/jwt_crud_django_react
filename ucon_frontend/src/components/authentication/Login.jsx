@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { post } from '../../services/api'; // your custom POST method
 import { API_LOGIN } from '../../services/endpoints'; // login endpoint
@@ -6,8 +6,15 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
   const [formData, setFormData] = useState({ user_email: '', password: '' });
-  const { login } = useContext(AuthContext);
+  const { login, token} = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
