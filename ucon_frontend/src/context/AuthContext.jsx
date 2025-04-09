@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
           console.error("Logout error:", err);
         }
     
-        // Always clear localStorage regardless of success
+        // clear localStorage regardless of success
         localStorage.removeItem("token");
         localStorage.removeItem("refresh_token");
         setToken(null);

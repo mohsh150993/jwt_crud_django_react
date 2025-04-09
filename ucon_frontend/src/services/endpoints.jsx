@@ -8,3 +8,6 @@ export const FILE_BASE_URL = BASE_URL;
 export const API_REGISTER = "/accounts/register/";
 export const API_LOGIN = "/accounts/login/";
 export const API_LOGOUT = "/accounts/logout/";
+
+// Token refresh endpoint
+
